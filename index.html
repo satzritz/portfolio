@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Satyam Rishikesh — AI Engineer & LLM Systems Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    /* ---- Light: sketchbook paper ---- */
+    --paper: #F2EEE2;
+    --paper-line: #D8D2BF;
+    --ink: #1C1B18;
+    --ink-soft: #55524A;
+    --card: #FBF9F2;
+    --accent: #E4531B;      /* marker orange */
+    --accent-2: #1F6F63;    /* pen teal */
+    --highlight: #F3CE3E;   /* highlighter yellow */
+    --tape: rgba(243, 206, 62, 0.55);
+    --shadow: rgba(28, 27, 24, 0.18);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+
+  /* prefers-color-scheme dark (auto) */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0D1D30;
+      --paper-line: #21405C;
+      --ink: #ECE7D8;
+      --ink-soft: #A9B9C7;
+      --card: #102640;
+      --accent: #FF7A4A;
+      --accent-2: #4FD9C8;
+      --highlight: #FFDD73;
+      --tape: rgba(79, 217, 200, 0.28);
+      --shadow: rgba(0, 0, 0, 0.45);
+    }
+  }
+  /* explicit dark toggle */
+  :root[data-theme="dark"] {
+    --paper: #0D1D30;
+    --paper-line: #21405C;
+    --ink: #ECE7D8;
+    --ink-soft: #A9B9C7;
+    --card: #102640;
+    --accent: #FF7A4A;
+    --accent-2: #4FD9C8;
+    --highlight: #FFDD73;
+    --tape: rgba(79, 217, 200, 0.28);
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background:
+      linear-gradient(var(--paper-line) 1px, transparent 1px) 0 0 / 100% 32px,
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px) 0 0 / 32px 100%,
+      var(--paper);
+    background-attachment: local, local, fixed;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+
+  h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -0.01em; }
+
+  a { color: inherit; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky; top: env(safe-area-inset-top, 0px);
+    z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 28px;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .topbar .mark { font-family: 'Caveat', cursive; font-size: 1.6rem; font-weight: 600; }
+  .topbar nav { display: flex; gap: 22px; font-size: 0.92rem; font-weight: 500; }
+  .topbar nav a { text-decoration: none; color: var(--ink-soft); transition: color .15s ease; }
+  .topbar nav a:hover, .topbar nav a:focus-visible { color: var(--ink); }
+  .theme-btn {
+    border: 1px solid var(--paper-line); background: var(--card); color: var(--ink);
+    width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
+  }
+  .theme-btn:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+
+  @media (max-width: 640px) {
+    .topbar nav { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 92px 0 70px; position: relative; }
+  .hero .eyebrow-doodle { width: 150px; height: auto; color: var(--accent-2); margin-bottom: 18px; opacity: .9; }
+  .hero h1 {
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    line-height: 0.98;
+    transform: rotate(-1.2deg);
+    transform-origin: left top;
+  }
+  .hero .role {
+    font-family: 'Caveat', cursive;
+    font-size: 1.9rem;
+    color: var(--accent);
+    display: inline-block;
+    margin-top: 6px;
+    transform: rotate(-1.2deg);
+  }
+  .hero p.lede {
+    max-width: 56ch;
+    margin-top: 26px;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+  }
+  .hero .cta-row { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; border-radius: 3px; border: 1.5px solid var(--ink);
+    transition: transform .12s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+
+  /* ---------- Section shell ---------- */
+  section { padding: 70px 0; border-top: 1px solid var(--paper-line); }
+  .section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 40px; }
+  .section-head .num { font-family: 'Caveat', cursive; font-size: 1.6rem; color: var(--accent-2); }
+  .section-head h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); }
+
+  /* ---------- About ---------- */
+  .about-grid { display: grid; grid-template-columns: 170px 1fr; gap: 44px; align-items: start; }
+  .about-photo {
+    aspect-ratio: 1; border-radius: 4px; background: var(--card);
+    border: 1.5px solid var(--paper-line);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-soft); font-size: 0.8rem; text-align: center; padding: 10px;
+    transform: rotate(-3deg);
+    box-shadow: 5px 6px 0 var(--shadow);
+    overflow: hidden;
+  }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; display: block; }
+  .about-text p { margin-bottom: 14px; max-width: 62ch; color: var(--ink-soft); }
+  .about-text strong { color: var(--ink); }
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-photo { width: 130px; }
+  }
+
+  /* ---------- Skills ---------- */
+  .skill-groups { display: grid; gap: 26px; }
+  .skill-group h3 {
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.82rem;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  .stamp-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .stamp {
+    font-size: 0.9rem; font-weight: 600; padding: 7px 14px;
+    border: 1.5px dashed var(--ink-soft); border-radius: 999px;
+    background: transparent;
+  }
+  .stamp:nth-child(3n+1) { transform: rotate(-2deg); }
+  .stamp:nth-child(3n+2) { transform: rotate(1.5deg); }
+  .stamp:nth-child(3n)   { transform: rotate(-0.5deg); }
+
+  /* ---------- Projects ---------- */
+  .board { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
+  .card {
+    background: var(--card); border: 1px solid var(--paper-line);
+    padding: 24px 22px 22px; border-radius: 3px;
+    box-shadow: 6px 7px 0 var(--shadow);
+    position: relative;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card:nth-child(odd) { transform: rotate(-1deg); }
+  .card:nth-child(even) { transform: rotate(1deg); }
+  .card:hover { transform: rotate(0deg) translateY(-4px); box-shadow: 4px 10px 0 var(--shadow); }
+  .card .pin {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); position: absolute; top: -6px; left: 24px;
+    box-shadow: 0 2px 3px var(--shadow);
+  }
+  .card h3 { font-size: 1.25rem; margin-bottom: 6px; }
+  .card .tagline { font-family: 'Caveat', cursive; font-size: 1.15rem; color: var(--accent-2); margin-bottom: 10px; }
+  .card p.desc { color: var(--ink-soft); font-size: 0.94rem; margin-bottom: 14px; }
+  .card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .card .tags span {
+    font-size: 0.72rem; font-weight: 600; padding: 3px 9px;
+    background: var(--paper); border: 1px solid var(--paper-line); border-radius: 3px;
+    color: var(--ink-soft);
+  }
+  .card .links { display: flex; gap: 16px; font-size: 0.86rem; font-weight: 600; }
+  .card .links a { text-decoration: none; border-bottom: 1.5px solid var(--accent); }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 4px; top: 6px; bottom: 6px; width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--ink-soft) 0 6px, transparent 6px 12px);
+  }
+  .t-item { position: relative; padding-bottom: 36px; }
+  .t-item:last-child { padding-bottom: 0; }
+  .t-item::before {
+    content: ""; position: absolute; left: -28px; top: 4px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--paper); border: 2.5px solid var(--accent-2);
+  }
+  .t-item .when { font-family: 'Caveat', cursive; color: var(--accent); font-size: 1.15rem; }
+  .t-item h3 { font-size: 1.15rem; margin: 2px 0 4px; }
+  .t-item .org { color: var(--ink-soft); font-weight: 600; font-size: 0.92rem; margin-bottom: 8px; }
+  .t-item p.role-desc { color: var(--ink-soft); font-size: 0.94rem; max-width: 60ch; }
+
+  /* ---------- Hobbies ---------- */
+  .hobby-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 22px; }
+  .hobby {
+    background: var(--card); border: 1px solid var(--paper-line);
+    padding: 18px 16px; text-align: center; border-radius: 3px;
+    position: relative;
+  }
+  .hobby::before {
+    content: ""; position: absolute; top: -8px; left: 50%; transform: translateX(-50%) rotate(-4deg);
+    width: 46px; height: 16px; background: var(--tape);
+  }
+  .hobby .glyph { font-size: 1.6rem; margin-bottom: 8px; }
+  .hobby h4 { font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+  .hobby p { font-size: 0.82rem; color: var(--ink-soft); }
+
+  /* ---------- Contact ---------- */
+  .contact-card {
+    background: var(--card); border: 1px solid var(--paper-line);
+    padding: 40px 36px; border-radius: 4px; text-align: center;
+    box-shadow: 6px 7px 0 var(--shadow);
+    max-width: 560px; margin: 0 auto;
+  }
+  .contact-card h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); margin-bottom: 10px; }
+  .contact-card p { color: var(--ink-soft); margin-bottom: 22px; }
+  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  footer { padding: 34px 0 48px; text-align: center; font-size: 0.82rem; color: var(--ink-soft); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+  }
+
+  ::selection { background: var(--highlight); color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="mark">Satyam Rishikesh</span>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">☀︎</button>
+</div>
+
+<div class="wrap">
+
+  <section class="hero" id="top">
+    <svg class="eyebrow-doodle" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M4 30 C 30 5, 60 5, 80 22 S 130 40, 156 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M140 6 L156 12 L146 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <h1>Satyam Rishikesh</h1>
+    <span class="role">AI &amp; Machine Learning Engineer</span>
+    <p class="lede">Innovative AI &amp; Machine Learning Engineer with 7+ years bridging software operations, data pipelines, and intelligent automation — specializing in LLM orchestration, RAG pipelines, semantic caching, and production-grade backend systems.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#projects">See my work</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head"><span class="num">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div class="about-photo">Satyam Rishikesh</div>
+      <div class="about-text">
+        <p><strong>Satyam Rishikesh</strong> is an AI &amp; Machine Learning Engineer based in Hyderabad, India, with 7+ years of experience bridging software operations, data pipelines, and intelligent automation. Progressive career track starting from foundational data modeling to Advanced Data Analytics and productionizing LLM/RAG workflows at Electronic Arts.</p>
+        <p>Strong foundation in Python, advanced SQL, LLM orchestration, semantic caching, and scalable Ubuntu OCI cloud architectures. Passionate about building robust AI systems that cut inference latency, optimize token costs, and enforce strict structured validation guards.</p>
+        <p style="font-size: 0.88rem; color: var(--ink-soft);">Languages: English, Hindi</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><span class="num">02</span><h2>Skills &amp; Tech Stack</h2></div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h3>AI &amp; LLM Stack</h3>
+        <div class="stamp-row">
+          <span class="stamp">LLM Orchestration</span>
+          <span class="stamp">RAG Pipelines</span>
+          <span class="stamp">Semantic Caching</span>
+          <span class="stamp">Gemini & OpenAI APIs</span>
+          <span class="stamp">Prompt Engineering</span>
+          <span class="stamp">Structured Outputs (Pydantic/JSON)</span>
+          <span class="stamp">LangChain & LlamaIndex</span>
+          <span class="stamp">Vector Search</span>
+          <span class="stamp">Hugging Face & PEFT/LoRA</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Languages &amp; Core</h3>
+        <div class="stamp-row">
+          <span class="stamp">Python</span>
+          <span class="stamp">SQL (Advanced)</span>
+          <span class="stamp">PySpark</span>
+          <span class="stamp">Spark</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Data Architecture &amp; Infrastructure</h3>
+        <div class="stamp-row">
+          <span class="stamp">Ubuntu OCI Environments</span>
+          <span class="stamp">Redis</span>
+          <span class="stamp">FastAPI</span>
+          <span class="stamp">ETL Pipelines</span>
+          <span class="stamp">Docker & MLflow</span>
+          <span class="stamp">Power BI</span>
+          <span class="stamp">Tableau</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head"><span class="num">03</span><h2>Projects</h2></div>
+    <div class="board">
+      <div class="card">
+        <div class="pin"></div>
+        <h3>Real-Time LLM Semantic Caching & Cost-Optimization Proxy</h3>
+        <div class="tagline">sub-millisecond retrieval & 45% token cost reduction</div>
+        <p class="desc">Built a middleware proxy intercepting LLM requests, computing prompt embeddings, and performing vector similarity matching against a Redis cache. Cut inference latency from ~1.5s to ~15ms and reduced API token costs significantly under high concurrency.</p>
+        <div class="tags"><span>Python</span><span>FastAPI</span><span>Redis</span><span>Sentence-Transformers</span><span>Gemini API</span></div>
+        <div class="links"><a href="https://github.com/satzritz" target="_blank" rel="noopener">GitHub</a></div>
+      </div>
+      <div class="card">
+        <div class="pin"></div>
+        <h3>Multi-Agent RAG System with Vector Search & Guardrails</h3>
+        <div class="tagline">autonomous hybrid retrieval & deterministic outputs</div>
+        <p class="desc">Built an autonomous multi-agent RAG system to ingest, chunk, and index enterprise documents into a vector database with hybrid search. Implemented Pydantic-based structured validation guards to prevent hallucinations and enforce strict schema compliance.</p>
+        <div class="tags"><span>Python</span><span>LangChain</span><span>LlamaIndex</span><span>Vector Search</span><span>Pydantic</span></div>
+        <div class="links"><a href="https://github.com/satzritz" target="_blank" rel="noopener">GitHub</a></div>
+      </div>
+      <div class="card">
+        <div class="pin"></div>
+        <h3>Automated LLM Fine-Tuning & Evaluation Pipeline</h3>
+        <div class="tagline">end-to-end CI/CD and QLoRA model optimization</div>
+        <p class="desc">Developed an end-to-end fine-tuning pipeline for open-source LLMs using LoRA/QLoRA on domain-specific datasets. Automated dataset cleaning, tokenization, training, and LLM-as-a-judge evaluation loops via MLflow.</p>
+        <div class="tags"><span>Python</span><span>Hugging Face</span><span>PEFT/LoRA</span><span>PyTorch</span><span>MLflow</span></div>
+        <div class="links"><a href="https://github.com/satzritz" target="_blank" rel="noopener">GitHub</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-head"><span class="num">04</span><h2>Experience</h2></div>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="when">Jun 2021 — Jul 2026</div>
+        <h3>TOS Analyst (Data Operations & AI Automation)</h3>
+        <div class="org">Electronic Arts (EA) Games Pvt Ltd</div>
+        <p class="role-desc">Architected automated transaction monitoring and anomaly detection microservices in Python, reducing manual intervention by 40%. Designed end-to-end telemetry pipelines aggregating millions of behavioral data points, cutting reporting latency by 40%.</p>
+      </div>
+      <div class="t-item">
+        <div class="when">Aug 2018 — May 2021</div>
+        <h3>Technical Associate (Subject Matter Expert)</h3>
+        <div class="org">Genpact India Pvt Ltd</div>
+        <p class="role-desc">Spearheaded data processing, cleaning, and metric tracking across large-scale enterprise datasets using advanced Excel and relational database querying. Engineered performance tracking pipelines and KPI telemetry reports.</p>
+      </div>
+      <div class="t-item">
+        <div class="when">Education</div>
+        <h3>B.E. in Computer Science</h3>
+        <div class="org">Asia Pacific Institute of Technology (Staffordshire University) — Grade A</div>
+        <p class="role-desc">Certified in AI & Large Language Model Architecture (Agentic Workflows & RAG), Advanced Python, Google Advanced Data Analytics, and Microsoft Power BI.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="border-bottom: 1px solid var(--paper-line);">
+    <div class="section-head"><span class="num">05</span><h2>Let's connect</h2></div>
+    <div class="contact-card">
+      <h2>Have an AI Engineer or Data Systems role?</h2>
+      <p>Based in Hyderabad, India — open to opportunities in LLM engineering, RAG architectures, and AI/ML backend systems.</p>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:satyamrishikesh@gmail.com">satyamrishikesh@gmail.com</a>
+        <a class="btn ghost" href="tel:+917015472331">+91 7015472331</a>
+        <a class="btn ghost" href="https://linkedin.com/in/satyam-rishikesh" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="https://github.com/satzritz" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>Satyam Rishikesh · AI & ML Engineer · Hyderabad, India</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById('themeToggle');
+    var root = document.documentElement;
+    function systemPrefersDark() {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    function applyIcon() {
+      var isDark = root.getAttribute('data-theme') === 'dark' ||
+        (!root.getAttribute('data-theme') && systemPrefersDark());
+      btn.textContent = isDark ? '☾' : '☀︎';
+    }
+    btn.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme');
+      var goingDark = current === 'dark' ? false : (current === 'light' ? true : !systemPrefersDark());
+      root.setAttribute('data-theme', goingDark ? 'dark' : 'light');
+      try { localStorage.setItem('theme', goingDark ? 'dark' : 'light'); } catch (e) {}
+      applyIcon();
+    });
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved) root.setAttribute('data-theme', saved);
+    } catch (e) {}
+    applyIcon();
+  })();
+</script>
+
+</body>
+</html>
