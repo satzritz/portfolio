@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Satyam Rishikesh — AI Engineer & LLM Systems Architect</title>
+<title>Satyam Rishikesh — AI & Machine Learning Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
@@ -120,7 +120,7 @@
     transform: rotate(-1.2deg);
   }
   .hero p.lede {
-    max-width: 56ch;
+    max-width: 54ch;
     margin-top: 26px;
     font-size: 1.08rem;
     color: var(--ink-soft);
@@ -258,20 +258,123 @@
   }
 
   ::selection { background: var(--highlight); color: var(--ink); }
+
+  /* ---------- Inline edit mode ---------- */
+  body.edit-mode .editable {
+    outline: 1.5px dashed var(--accent-2);
+    outline-offset: 2px;
+    border-radius: 2px;
+    cursor: text;
+  }
+  body.edit-mode .editable:hover { outline-color: var(--accent); }
+  body.edit-mode .editable:focus { outline: 1.5px solid var(--accent); background: color-mix(in srgb, var(--highlight) 18%, transparent); }
+
+  .edit-toggle-btn {
+    border: 1px solid var(--paper-line); background: var(--card); color: var(--ink);
+    height: 34px; padding: 0 14px; border-radius: 17px; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .edit-toggle-btn.active { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+
+  .save-bar {
+    display: none;
+    position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    z-index: 100;
+    background: var(--ink); color: var(--paper);
+    padding: 12px 14px 12px 18px; border-radius: 999px;
+    align-items: center; gap: 12px;
+    box-shadow: 0 8px 24px var(--shadow);
+    font-size: 0.88rem;
+  }
+  .save-bar button {
+    border: none; border-radius: 999px; padding: 9px 18px; font-weight: 700; font-size: 0.85rem;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+  }
+  .save-bar .save-btn { background: var(--accent); color: #fff; }
+  .save-bar .cancel-btn { background: transparent; color: var(--paper); text-decoration: underline; padding: 9px 6px; }
+  .save-bar .status { color: var(--ink-soft); }
+
+  /* ---------- Admin: modal + panel ---------- */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(10, 10, 10, 0.5);
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-box {
+    background: var(--card); color: var(--ink);
+    border: 1px solid var(--paper-line); border-radius: 6px;
+    padding: 26px 24px; width: 100%; max-width: 340px;
+    box-shadow: 0 12px 32px var(--shadow);
+    font-family: 'Inter', sans-serif;
+  }
+  .modal-box h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; margin-bottom: 6px; }
+  .modal-box p.hint { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 14px; }
+  .modal-box input[type="password"] {
+    width: 100%; padding: 10px 12px; margin-bottom: 10px;
+    border: 1.5px solid var(--paper-line); border-radius: 4px;
+    background: var(--paper); color: var(--ink); font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+  }
+  .modal-box input[type="password"]:focus { outline: 2px solid var(--accent-2); }
+  .modal-box .modal-error { color: var(--accent); font-size: 0.82rem; min-height: 1.1em; margin-bottom: 6px; }
+  .modal-box .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; }
+  .modal-box .modal-actions button {
+    border: none; border-radius: 5px; padding: 9px 16px; font-weight: 700; font-size: 0.85rem;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+  }
+  .modal-box .modal-primary { background: var(--ink); color: var(--paper); }
+  .modal-box .modal-cancel { background: transparent; color: var(--ink-soft); }
+
+  .admin-panel {
+    display: none; position: absolute; top: 56px; right: 28px; z-index: 90;
+    background: var(--card); border: 1px solid var(--paper-line); border-radius: 6px;
+    box-shadow: 0 10px 26px var(--shadow); padding: 8px; min-width: 190px;
+    flex-direction: column; gap: 2px;
+  }
+  .admin-panel button {
+    display: flex; align-items: center; gap: 8px;
+    background: transparent; border: none; text-align: left;
+    padding: 10px 12px; border-radius: 4px; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--ink);
+  }
+  .admin-panel button:hover { background: var(--paper); }
+  .admin-panel .divider { height: 1px; background: var(--paper-line); margin: 4px 2px; }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <span class="mark">Satyam Rishikesh</span>
+  <span class="mark editable">Satyam Rishikesh</span>
   <nav>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#experience">Experience</a>
+    <a href="#hobbies">Hobbies</a>
     <a href="#contact">Contact</a>
   </nav>
   <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">☀︎</button>
+  <button class="edit-toggle-btn" id="adminBtn" style="display:none;">🔒 Admin</button>
+</div>
+
+<div class="admin-panel" id="adminPanel">
+  <button id="startEditBtn">✎ Edit content</button>
+  <button id="changePwBtn">🔑 Change password</button>
+  <div class="divider"></div>
+  <button id="lockBtn">🔒 Lock admin</button>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<div class="save-bar" id="saveBar">
+  <span class="status" id="saveStatus">Click any text to edit it</span>
+  <button class="cancel-btn" id="cancelEdit">Cancel</button>
+  <button class="save-btn" id="saveEdit">Save changes</button>
 </div>
 
 <div class="wrap">
@@ -281,9 +384,9 @@
       <path d="M4 30 C 30 5, 60 5, 80 22 S 130 40, 156 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
       <path d="M140 6 L156 12 L146 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </svg>
-    <h1>Satyam Rishikesh</h1>
-    <span class="role">AI &amp; Machine Learning Engineer</span>
-    <p class="lede">Innovative AI &amp; Machine Learning Engineer with 7+ years bridging software operations, data pipelines, and intelligent automation — specializing in LLM orchestration, RAG pipelines, semantic caching, and production-grade backend systems.</p>
+    <h1 class="editable">Satyam Rishikesh</h1>
+    <span class="role editable">AI & Machine Learning Engineer</span>
+    <p class="lede editable">Innovative AI & Machine Learning Engineer with 7+ years bridging software operations, data pipelines, and intelligent automation — specializing in LLM orchestration, RAG pipelines, semantic caching, and production-grade backend systems.</p>
     <div class="cta-row">
       <a class="btn primary" href="#projects">See my work</a>
       <a class="btn ghost" href="#contact">Get in touch</a>
@@ -291,117 +394,127 @@
   </section>
 
   <section id="about">
-    <div class="section-head"><span class="num">01</span><h2>About</h2></div>
+    <div class="section-head"><span class="num">01</span><h2 class="editable">About</h2></div>
     <div class="about-grid">
       <div class="about-photo">Satyam Rishikesh</div>
       <div class="about-text">
-        <p><strong>Satyam Rishikesh</strong> is an AI &amp; Machine Learning Engineer based in Hyderabad, India, with 7+ years of experience bridging software operations, data pipelines, and intelligent automation. Progressive career track starting from foundational data modeling to Advanced Data Analytics and productionizing LLM/RAG workflows at Electronic Arts.</p>
-        <p>Strong foundation in Python, advanced SQL, LLM orchestration, semantic caching, and scalable Ubuntu OCI cloud architectures. Passionate about building robust AI systems that cut inference latency, optimize token costs, and enforce strict structured validation guards.</p>
-        <p style="font-size: 0.88rem; color: var(--ink-soft);">Languages: English, Hindi</p>
+        <p class="editable"><strong>Satyam Rishikesh</strong> is an AI & Machine Learning Engineer based in Hyderabad, India, with 7+ years of experience bridging software operations, data pipelines, and intelligent automation. Progressive career track starting from foundational data modeling to Advanced Data Analytics and productionizing LLM/RAG workflows at Electronic Arts.</p>
+        <p class="editable">Strong foundation in Python, advanced SQL, LLM orchestration, semantic caching, and scalable Ubuntu OCI cloud architectures. Passionate about building robust AI systems that cut inference latency, optimize token costs, and enforce strict structured validation guards.</p>
+        <p style="font-size: 0.88rem; color: var(--ink-soft);" class="editable">Languages: English, Hindi</p>
       </div>
     </div>
   </section>
 
   <section id="skills">
-    <div class="section-head"><span class="num">02</span><h2>Skills &amp; Tech Stack</h2></div>
+    <div class="section-head"><span class="num">02</span><h2 class="editable">Skills & Tech Stack</h2></div>
     <div class="skill-groups">
       <div class="skill-group">
-        <h3>AI &amp; LLM Stack</h3>
+        <h3 class="editable">AI & LLM Stack</h3>
         <div class="stamp-row">
-          <span class="stamp">LLM Orchestration</span>
-          <span class="stamp">RAG Pipelines</span>
-          <span class="stamp">Semantic Caching</span>
-          <span class="stamp">Gemini & OpenAI APIs</span>
-          <span class="stamp">Prompt Engineering</span>
-          <span class="stamp">Structured Outputs (Pydantic/JSON)</span>
-          <span class="stamp">LangChain & LlamaIndex</span>
-          <span class="stamp">Vector Search</span>
-          <span class="stamp">Hugging Face & PEFT/LoRA</span>
+          <span class="stamp editable">LLM Orchestration</span>
+          <span class="stamp editable">RAG Pipelines</span>
+          <span class="stamp editable">Semantic Caching</span>
+          <span class="stamp editable">Gemini & OpenAI APIs</span>
+          <span class="stamp editable">Prompt Engineering</span>
+          <span class="stamp editable">Structured Outputs (Pydantic/JSON)</span>
+          <span class="stamp editable">LangChain & LlamaIndex</span>
+          <span class="stamp editable">Vector Search</span>
+          <span class="stamp editable">Hugging Face & PEFT/LoRA</span>
         </div>
       </div>
       <div class="skill-group">
-        <h3>Languages &amp; Core</h3>
+        <h3 class="editable">Languages & Core</h3>
         <div class="stamp-row">
-          <span class="stamp">Python</span>
-          <span class="stamp">SQL (Advanced)</span>
-          <span class="stamp">PySpark</span>
-          <span class="stamp">Spark</span>
+          <span class="stamp editable">Python</span>
+          <span class="stamp editable">SQL (Advanced)</span>
+          <span class="stamp editable">PySpark</span>
+          <span class="stamp editable">Spark</span>
         </div>
       </div>
       <div class="skill-group">
-        <h3>Data Architecture &amp; Infrastructure</h3>
+        <h3 class="editable">Data Architecture & Infrastructure</h3>
         <div class="stamp-row">
-          <span class="stamp">Ubuntu OCI Environments</span>
-          <span class="stamp">Redis</span>
-          <span class="stamp">FastAPI</span>
-          <span class="stamp">ETL Pipelines</span>
-          <span class="stamp">Docker & MLflow</span>
-          <span class="stamp">Power BI</span>
-          <span class="stamp">Tableau</span>
+          <span class="stamp editable">Ubuntu OCI Environments</span>
+          <span class="stamp editable">Redis</span>
+          <span class="stamp editable">FastAPI</span>
+          <span class="stamp editable">ETL Pipelines</span>
+          <span class="stamp editable">Docker & MLflow</span>
+          <span class="stamp editable">Power BI</span>
+          <span class="stamp editable">Tableau</span>
         </div>
       </div>
     </div>
   </section>
 
   <section id="projects">
-    <div class="section-head"><span class="num">03</span><h2>Projects</h2></div>
+    <div class="section-head"><span class="num">03</span><h2 class="editable">Projects</h2></div>
     <div class="board">
       <div class="card">
         <div class="pin"></div>
-        <h3>Real-Time LLM Semantic Caching & Cost-Optimization Proxy</h3>
-        <div class="tagline">sub-millisecond retrieval & 45% token cost reduction</div>
-        <p class="desc">Built a middleware proxy intercepting LLM requests, computing prompt embeddings, and performing vector similarity matching against a Redis cache. Cut inference latency from ~1.5s to ~15ms and reduced API token costs significantly under high concurrency.</p>
-        <div class="tags"><span>Python</span><span>FastAPI</span><span>Redis</span><span>Sentence-Transformers</span><span>Gemini API</span></div>
+        <h3 class="editable">Real-Time LLM Semantic Caching & Cost-Optimization Proxy</h3>
+        <div class="tagline editable">sub-millisecond retrieval & 45% token cost reduction</div>
+        <p class="desc editable">Built a middleware proxy intercepting LLM requests, computing prompt embeddings, and performing vector similarity matching against a Redis cache. Cut inference latency from ~1.5s to ~15ms and reduced API token costs significantly under high concurrency.</p>
+        <div class="tags"><span class="editable">Python</span><span class="editable">FastAPI</span><span class="editable">Redis</span><span class="editable">Sentence-Transformers</span><span class="editable">Gemini API</span></div>
         <div class="links"><a href="https://github.com/satzritz" target="_blank" rel="noopener">GitHub</a></div>
       </div>
       <div class="card">
         <div class="pin"></div>
-        <h3>Multi-Agent RAG System with Vector Search & Guardrails</h3>
-        <div class="tagline">autonomous hybrid retrieval & deterministic outputs</div>
-        <p class="desc">Built an autonomous multi-agent RAG system to ingest, chunk, and index enterprise documents into a vector database with hybrid search. Implemented Pydantic-based structured validation guards to prevent hallucinations and enforce strict schema compliance.</p>
-        <div class="tags"><span>Python</span><span>LangChain</span><span>LlamaIndex</span><span>Vector Search</span><span>Pydantic</span></div>
+        <h3 class="editable">Multi-Agent RAG System with Vector Search & Guardrails</h3>
+        <div class="tagline editable">autonomous hybrid retrieval & deterministic outputs</div>
+        <p class="desc editable">Built an autonomous multi-agent RAG system to ingest, chunk, and index enterprise documents into a vector database with hybrid search. Implemented Pydantic-based structured validation guards to prevent hallucinations and enforce strict schema compliance.</p>
+        <div class="tags"><span class="editable">Python</span><span class="editable">LangChain</span><span class="editable">LlamaIndex</span><span class="editable">Vector Search</span><span class="editable">Pydantic</span></div>
         <div class="links"><a href="https://github.com/satzritz" target="_blank" rel="noopener">GitHub</a></div>
       </div>
       <div class="card">
         <div class="pin"></div>
-        <h3>Automated LLM Fine-Tuning & Evaluation Pipeline</h3>
-        <div class="tagline">end-to-end CI/CD and QLoRA model optimization</div>
-        <p class="desc">Developed an end-to-end fine-tuning pipeline for open-source LLMs using LoRA/QLoRA on domain-specific datasets. Automated dataset cleaning, tokenization, training, and LLM-as-a-judge evaluation loops via MLflow.</p>
-        <div class="tags"><span>Python</span><span>Hugging Face</span><span>PEFT/LoRA</span><span>PyTorch</span><span>MLflow</span></div>
+        <h3 class="editable">Automated LLM Fine-Tuning & Evaluation Pipeline</h3>
+        <div class="tagline editable">end-to-end CI/CD and QLoRA model optimization</div>
+        <p class="desc editable">Developed an end-to-end fine-tuning pipeline for open-source LLMs using LoRA/QLoRA on domain-specific datasets. Automated dataset cleaning, tokenization, training, and LLM-as-a-judge evaluation loops via MLflow.</p>
+        <div class="tags"><span class="editable">Python</span><span class="editable">Hugging Face</span><span class="editable">PEFT/LoRA</span><span class="editable">PyTorch</span><span class="editable">MLflow</span></div>
         <div class="links"><a href="https://github.com/satzritz" target="_blank" rel="noopener">GitHub</a></div>
       </div>
     </div>
   </section>
 
   <section id="experience">
-    <div class="section-head"><span class="num">04</span><h2>Experience</h2></div>
+    <div class="section-head"><span class="num">04</span><h2 class="editable">Experience</h2></div>
     <div class="timeline">
       <div class="t-item">
-        <div class="when">Jun 2021 — Jul 2026</div>
-        <h3>TOS Analyst (Data Operations & AI Automation)</h3>
-        <div class="org">Electronic Arts (EA) Games Pvt Ltd</div>
-        <p class="role-desc">Architected automated transaction monitoring and anomaly detection microservices in Python, reducing manual intervention by 40%. Designed end-to-end telemetry pipelines aggregating millions of behavioral data points, cutting reporting latency by 40%.</p>
+        <div class="when editable">Jun 2021 — Jul 2026</div>
+        <h3 class="editable">TOS Analyst (Data Operations & AI Automation)</h3>
+        <div class="org editable">Electronic Arts (EA) Games Pvt Ltd</div>
+        <p class="role-desc editable">Architected automated transaction monitoring and anomaly detection microservices in Python, reducing manual intervention by 40%. Designed end-to-end telemetry pipelines aggregating millions of behavioral data points, cutting reporting latency by 40%.</p>
       </div>
       <div class="t-item">
-        <div class="when">Aug 2018 — May 2021</div>
-        <h3>Technical Associate (Subject Matter Expert)</h3>
-        <div class="org">Genpact India Pvt Ltd</div>
-        <p class="role-desc">Spearheaded data processing, cleaning, and metric tracking across large-scale enterprise datasets using advanced Excel and relational database querying. Engineered performance tracking pipelines and KPI telemetry reports.</p>
+        <div class="when editable">Aug 2018 — May 2021</div>
+        <h3 class="editable">Technical Associate (Subject Matter Expert)</h3>
+        <div class="org editable">Genpact India Pvt Ltd</div>
+        <p class="role-desc editable">Spearheaded data processing, cleaning, and metric tracking across large-scale enterprise datasets using advanced Excel and relational database querying. Engineered performance tracking pipelines and KPI telemetry reports.</p>
       </div>
       <div class="t-item">
-        <div class="when">Education</div>
-        <h3>B.E. in Computer Science</h3>
-        <div class="org">Asia Pacific Institute of Technology (Staffordshire University) — Grade A</div>
-        <p class="role-desc">Certified in AI & Large Language Model Architecture (Agentic Workflows & RAG), Advanced Python, Google Advanced Data Analytics, and Microsoft Power BI.</p>
+        <div class="when editable">Education</div>
+        <h3 class="editable">B.E. in Computer Science</h3>
+        <div class="org editable">Asia Pacific Institute of Technology (Staffordshire University) — Grade A</div>
+        <p class="role-desc editable">Certified in AI & Large Language Model Architecture (Agentic Workflows & RAG), Advanced Python, Google Advanced Data Analytics, and Microsoft Power BI.</p>
       </div>
     </div>
   </section>
 
+  <section id="hobbies">
+    <div class="section-head"><span class="num">05</span><h2 class="editable">Beyond the screen</h2></div>
+    <div class="hobby-grid">
+      <div class="hobby"><div class="glyph editable">🚗</div><h4 class="editable">Car driving</h4><p class="editable">Weekend drives</p></div>
+      <div class="hobby"><div class="glyph editable">🏍️</div><h4 class="editable">Riding bikes</h4><p class="editable">Two wheels, open road</p></div>
+      <div class="hobby"><div class="glyph editable">✈️</div><h4 class="editable">Travelling</h4><p class="editable">New places, new context</p></div>
+      <div class="hobby"><div class="glyph editable">🏋️</div><h4 class="editable">Gym</h4><p class="editable">Consistency over intensity</p></div>
+    </div>
+  </section>
+
   <section id="contact" style="border-bottom: 1px solid var(--paper-line);">
-    <div class="section-head"><span class="num">05</span><h2>Let's connect</h2></div>
+    <div class="section-head"><span class="num">06</span><h2 class="editable">Let's connect</h2></div>
     <div class="contact-card">
-      <h2>Have an AI Engineer or Data Systems role?</h2>
-      <p>Based in Hyderabad, India — open to opportunities in LLM engineering, RAG architectures, and AI/ML backend systems.</p>
+      <h2 class="editable">Have an AI Engineer or Data Systems role?</h2>
+      <p class="editable">Based in Hyderabad, India — open to opportunities in LLM engineering, RAG architectures, and AI/ML backend systems.</p>
       <div class="contact-links">
         <a class="btn primary" href="mailto:satyamrishikesh@gmail.com">satyamrishikesh@gmail.com</a>
         <a class="btn ghost" href="tel:+917015472331">+91 7015472331</a>
@@ -413,7 +526,7 @@
 
 </div>
 
-<footer>Satyam Rishikesh · AI & ML Engineer · Hyderabad, India</footer>
+<footer class="editable">Satyam Rishikesh · AI & ML Engineer · Hyderabad, India</footer>
 
 <script>
   (function () {
@@ -439,6 +552,227 @@
       if (saved) root.setAttribute('data-theme', saved);
     } catch (e) {}
     applyIcon();
+  })();
+
+  (function () {
+    var EDITABLE_SELECTOR = [
+      '.topbar .mark',
+      '.hero h1',
+      '.hero .role',
+      '.hero p.lede',
+      '.about-text p',
+      '.skill-group h3',
+      '.stamp',
+      '.card h3',
+      '.card .tagline',
+      '.card p.desc',
+      '.card .tags span',
+      '.section-head h2',
+      '.t-item .when',
+      '.t-item h3',
+      '.t-item .org',
+      '.t-item p.role-desc',
+      '.hobby .glyph',
+      '.hobby h4',
+      '.hobby p',
+      '.contact-card h2',
+      '.contact-card p',
+      'footer'
+    ].join(',');
+
+    var adminBtn = document.getElementById('adminBtn');
+    var adminPanel = document.getElementById('adminPanel');
+    var startEditBtn = document.getElementById('startEditBtn');
+    var changePwBtn = document.getElementById('changePwBtn');
+    var lockBtn = document.getElementById('lockBtn');
+    var overlay = document.getElementById('modalOverlay');
+    var modalBox = document.getElementById('modalBox');
+    var saveBar = document.getElementById('saveBar');
+    var saveBtn = document.getElementById('saveEdit');
+    var cancelBtn = document.getElementById('cancelEdit');
+    var statusEl = document.getElementById('saveStatus');
+
+    var artifactAPI = null;
+    var dbAPI = null;
+    var unlocked = false;
+    var editing = false;
+    var ADMIN_PATH = 'admin/config';
+
+    function sha256(str) {
+      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)).then(function (buf) {
+        return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+      });
+    }
+
+    function closeModal() { overlay.style.display = 'none'; modalBox.innerHTML = ''; }
+    function openModal(html) { modalBox.innerHTML = html; overlay.style.display = 'flex'; }
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+
+    function showAdminPanel(on) { adminPanel.style.display = on ? 'flex' : 'none'; }
+
+    function setEditable(on) {
+      document.querySelectorAll(EDITABLE_SELECTOR).forEach(function (el) {
+        el.contentEditable = on ? 'true' : 'false';
+        el.classList.toggle('editable', on);
+      });
+      document.body.classList.toggle('edit-mode', on);
+      saveBar.style.display = on ? 'flex' : 'none';
+    }
+
+    function setUnlocked(on) {
+      unlocked = on;
+      adminBtn.textContent = on ? '🔓 Admin' : '🔒 Admin';
+      adminBtn.classList.toggle('active', on);
+      if (!on) { showAdminPanel(false); setEditable(false); editing = false; }
+    }
+
+    function promptPassword(mode) {
+      openModal(
+        '<h3>' + (mode === 'setup' ? 'Set an admin password' : 'Admin password') + '</h3>' +
+        '<p class="hint">' + (mode === 'setup'
+          ? 'No password is set yet. Choose one now — you'll need it every time you want to edit this page.'
+          : 'Enter the password to unlock editing.') + '</p>' +
+        '<input type="password" id="pwInput" placeholder="Password" autocomplete="off">' +
+        (mode === 'setup' ? '<input type="password" id="pwInput2" placeholder="Confirm password" autocomplete="off">' : '') +
+        '<div class="modal-error" id="pwError"></div>' +
+        '<div class="modal-actions">' +
+        '<button class="modal-cancel" id="pwCancel">Cancel</button>' +
+        '<button class="modal-primary" id="pwSubmit">' + (mode === 'setup' ? 'Set password' : 'Unlock') + '</button>' +
+        '</div>'
+      );
+      var input = document.getElementById('pwInput');
+      input.focus();
+      document.getElementById('pwCancel').addEventListener('click', closeModal);
+      document.getElementById('pwSubmit').addEventListener('click', submit);
+      modalBox.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
+
+      function submit() {
+        var errEl = document.getElementById('pwError');
+        var val = input.value;
+        if (!val || val.length < 4) { errEl.textContent = 'Use at least 4 characters.'; return; }
+        if (mode === 'setup') {
+          var val2 = document.getElementById('pwInput2').value;
+          if (val !== val2) { errEl.textContent = 'Passwords don't match.'; return; }
+          sha256(val).then(function (hash) {
+            return dbAPI.doc(ADMIN_PATH).set({ passwordHash: hash });
+          }).then(function () {
+            closeModal();
+            setUnlocked(true);
+            showAdminPanel(true);
+          }).catch(function () { errEl.textContent = 'Could not save the password — try again.'; });
+        } else {
+          sha256(val).then(function (hash) {
+            return dbAPI.doc(ADMIN_PATH).get().then(function (snap) {
+              var stored = snap.exists ? snap.data().passwordHash : null;
+              if (stored && stored === hash) {
+                closeModal();
+                setUnlocked(true);
+                showAdminPanel(true);
+              } else {
+                errEl.textContent = 'Incorrect password.';
+                input.value = '';
+                input.focus();
+              }
+            });
+          }).catch(function () { errEl.textContent = 'Could not check the password — try again.'; });
+        }
+      }
+    }
+
+    function promptChangePassword() {
+      openModal(
+        '<h3>Change password</h3>' +
+        '<p class="hint">Enter your current password, then the new one.</p>' +
+        '<input type="password" id="cpCurrent" placeholder="Current password" autocomplete="off">' +
+        '<input type="password" id="cpNew" placeholder="New password" autocomplete="off">' +
+        '<input type="password" id="cpNew2" placeholder="Confirm new password" autocomplete="off">' +
+        '<div class="modal-error" id="cpError"></div>' +
+        '<div class="modal-actions">' +
+        '<button class="modal-cancel" id="cpCancel">Cancel</button>' +
+        '<button class="modal-primary" id="cpSubmit">Update</button>' +
+        '</div>'
+      );
+      document.getElementById('cpCurrent').focus();
+      document.getElementById('cpCancel').addEventListener('click', closeModal);
+      document.getElementById('cpSubmit').addEventListener('click', submit);
+
+      function submit() {
+        var errEl = document.getElementById('cpError');
+        var cur = document.getElementById('cpCurrent').value;
+        var next = document.getElementById('cpNew').value;
+        var next2 = document.getElementById('cpNew2').value;
+        if (next.length < 4) { errEl.textContent = 'New password must be at least 4 characters.'; return; }
+        if (next !== next2) { errEl.textContent = 'New passwords don't match.'; return; }
+        sha256(cur).then(function (curHash) {
+          return dbAPI.doc(ADMIN_PATH).get().then(function (snap) {
+            var stored = snap.exists ? snap.data().passwordHash : null;
+            if (stored !== curHash) { errEl.textContent = 'Current password is incorrect.'; return; }
+            return sha256(next).then(function (newHash) {
+              return dbAPI.doc(ADMIN_PATH).set({ passwordHash: newHash });
+            }).then(function () {
+              closeModal();
+              showAdminPanel(true);
+            });
+          });
+        }).catch(function () { errEl.textContent = 'Could not update — try again.'; });
+      }
+    }
+
+    adminBtn.addEventListener('click', function () {
+      if (!dbAPI) return;
+      if (unlocked) { showAdminPanel(adminPanel.style.display !== 'flex'); return; }
+      dbAPI.doc(ADMIN_PATH).get().then(function (snap) {
+        promptPassword(snap.exists ? 'unlock' : 'setup');
+      }).catch(function () { promptPassword('setup'); });
+    });
+
+    startEditBtn.addEventListener('click', function () {
+      showAdminPanel(false);
+      editing = true;
+      setEditable(true);
+      statusEl.textContent = 'Click any text to edit it';
+    });
+
+    changePwBtn.addEventListener('click', function () {
+      showAdminPanel(false);
+      promptChangePassword();
+    });
+
+    lockBtn.addEventListener('click', function () { setUnlocked(false); });
+
+    cancelBtn.addEventListener('click', function () {
+      editing = false;
+      setEditable(false);
+    });
+
+    saveBtn.addEventListener('click', function () {
+      if (!artifactAPI) return;
+      statusEl.textContent = 'Saving…';
+      saveBtn.disabled = true;
+      setEditable(false);
+      var html = '<!DOCTYPE html>
+' + document.documentElement.outerHTML;
+      artifactAPI.publish(html).then(function () {
+        statusEl.textContent = 'Saved';
+        editing = false;
+        saveBtn.disabled = false;
+        setTimeout(function () { saveBar.style.display = 'none'; }, 1200);
+      }).catch(function () {
+        statusEl.textContent = 'Could not save — try again';
+        saveBtn.disabled = false;
+        setEditable(true);
+      });
+    });
+
+    if (window.claude && typeof window.claude.use === 'function') {
+      Promise.all([window.claude.use('artifact'), window.claude.use('db')]).then(function (apis) {
+        artifactAPI = apis[0];
+        dbAPI = apis[1];
+        if (artifactAPI && dbAPI) {
+          adminBtn.style.display = 'flex';
+        }
+      }).catch(function () {});
+    }
   })();
 </script>
 
